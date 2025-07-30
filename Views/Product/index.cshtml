@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model List<Product>
+
+    foreach(var product in Model)
+    {
+        <div>
+        <h1> @product.Name</h1>
+        <img src="/Images/@product.Image" />
+        <br />
+            <a href="/product/details/@product.Id">details</a>
+        </div>
+    }
+}

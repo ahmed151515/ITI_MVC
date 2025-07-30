@@ -1,0 +1,35 @@
+﻿
+<div>
+    <h1> test view show</h1>
+
+@{
+    // razor syntax
+    // block of code
+    int x = 5;
+    string name = "ahmed arafa";
+}
+
+<!-- inline expresion  print value -->
+<h1>@x</h1>
+<h1>@name</h1>
+
+    @if (x % 2 == 0)
+    {
+        <h1>@x is even</h1>
+    }
+    else
+    {
+    <h1>x: @x is odd</h1>
+
+    }
+
+    @for(int i = 0; i< 10; i++)
+    {
+        @for(int j = 0; j < i; j++)
+        {
+            <span>*</span>
+        }
+        <br />
+    }
+
+</div>
