@@ -1,32 +1,50 @@
-using System.Diagnostics;
-using ITI_MVC.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace ITI_MVC.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
+	public class HomeController : Controller
+	{
+		public ActionResult Index()
+		{
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+			var routes = GetAllRoutes();
+			return View(routes);
+		}
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+		private List<RouteInfo> GetAllRoutes()
+		{
+			var controllerTypes = Assembly.GetExecutingAssembly()
+				.GetTypes()
+				.Where(t => typeof(Controller).IsAssignableFrom(t) && !t.IsAbstract)
+				.ToList();
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+			var routes = new List<RouteInfo>();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+			foreach (var controller in controllerTypes)
+			{
+				var controllerName = controller.Name.Replace("Controller", "");
+				var actions = controller.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+										.Where(m => typeof(IActionResult).IsAssignableFrom(m.ReturnType) || m.ReturnType == typeof(Task<ActionResult>));
+
+				foreach (var action in actions)
+				{
+					routes.Add(new RouteInfo
+					{
+						Controller = controllerName,
+						Action = action.Name
+					});
+				}
+			}
+
+			return routes;
+		}
+
+		public class RouteInfo
+		{
+			public string Controller { get; set; }
+			public string Action { get; set; }
+		}
+
+	}
 }

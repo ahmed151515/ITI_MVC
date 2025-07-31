@@ -11,7 +11,35 @@ namespace ITI_MVC
 
 			var app = builder.Build();
 
+			// some custom Middelware
+			//app.Use(async (httpContext, next) =>
+			//{
+			//	httpContext.Response.WriteAsync("Middelware 1\n");
+			//	next.Invoke();
+			//});
+			//app.Use(async (httpContext, next) =>
+			//{
+			//	httpContext.Response.WriteAsync("Middelware 2\n");
+			//	next.Invoke();
+
+			//});
+
+			//app.Run(async httpContext =>
+			//{
+			//	httpContext.Response.WriteAsync("Termiante\n");
+			//});
+
+			//app.Use(async (httpContext, next) =>
+			//{
+			//	httpContext.Response.WriteAsync("Middelware 3\n");
+			//	next.Invoke();
+			//});
+
 			// Configure the HTTP request pipeline.
+			// The order of middleware is very important.
+			// For example, UseExceptionHandler must come before other middlewares
+			// so it can handel exceptions thrown by them.
+
 			if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Home/Error");
@@ -24,7 +52,8 @@ namespace ITI_MVC
 
 			app.MapControllerRoute(
 				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}");
+				pattern: "{controller=Home}/{action=Index}/{id?}"
+				);
 
 			app.Run();
 		}

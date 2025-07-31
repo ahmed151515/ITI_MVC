@@ -122,8 +122,12 @@ namespace ITI_MVC.Controllers
 		{
 			var prductsData = new ProductMockData();
 
+
 			return View("index", prductsData.GetAll());
+
 		}
 
 	}
+
+
 }
