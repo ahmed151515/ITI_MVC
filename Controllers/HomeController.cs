@@ -14,6 +14,7 @@ namespace ITI_MVC.Controllers
 
 		private List<RouteInfo> GetAllRoutes()
 		{
+			var skipActions = new List<string> { "Details" };
 			var controllerTypes = Assembly.GetExecutingAssembly()
 				.GetTypes()
 				.Where(t => typeof(Controller).IsAssignableFrom(t) && !t.IsAbstract)
@@ -21,18 +22,20 @@ namespace ITI_MVC.Controllers
 
 			var routes = new List<RouteInfo>();
 
+
 			foreach (var controller in controllerTypes)
 			{
 				var controllerName = controller.Name.Replace("Controller", "");
 				var actions = controller.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-										.Where(m => typeof(IActionResult).IsAssignableFrom(m.ReturnType) || m.ReturnType == typeof(Task<ActionResult>));
+										.Where(m => !skipActions.Contains(m.Name) && (typeof(IActionResult).IsAssignableFrom(m.ReturnType) || m.ReturnType == typeof(Task<IActionResult>)));
 
 				foreach (var action in actions)
 				{
+
 					routes.Add(new RouteInfo
 					{
 						Controller = controllerName,
-						Action = action.Name
+						Action = action.Name,
 					});
 				}
 			}

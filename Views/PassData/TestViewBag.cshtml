@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model Employee
+    <h1>DateNow: @ViewBag.dateNow</h1>
+    <h1>numFoEmployees: @ViewBag.numOfEmployees</h1>
+
+    <h1>Employee data</h1>
+    <h2>
+
+        @(
+            $"{nameof(Model.Name)}: {Model.Name}\n"
+            + $"{nameof(Model.Salary)}: {Model.Salary} \n"
+            + $"{nameof(Model.Address)}: {Model.Address} \n"
+
+            )
+
+</h2>
+}

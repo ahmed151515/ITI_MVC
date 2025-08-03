@@ -5,9 +5,12 @@
     @foreach (var route in Model)
     {
         <li>
-            <a href="@Url.Action(route.Action, route.Controller)">
+            
+                
+            <a href="@($"{route.Controller}/{route.Action}")">
                 @($"{route.Controller}/{route.Action}")
             </a>
+            
         </li>
     }
 </ul>

@@ -120,10 +120,9 @@ namespace ITI_MVC.Controllers
 		}
 		public IActionResult index()
 		{
-			var prductsData = new ProductMockData();
+			var prductsData = new ProductMockData().GetAll();
 
-
-			return View("index", prductsData.GetAll());
+			return View("index", prductsData);
 
 		}
 

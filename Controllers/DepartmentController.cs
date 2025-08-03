@@ -13,6 +13,7 @@ namespace ITI_MVC.Controllers
 
 			var data = context.Departments.ToList();
 
+
 			return View("Index", data);
 		}
 	}
