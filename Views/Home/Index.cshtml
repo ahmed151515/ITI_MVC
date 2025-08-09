@@ -1,16 +1,26 @@
 ﻿@model List<ITI_MVC.Controllers.HomeController.RouteInfo>
 
 <h2>Available Routes</h2>
-<ul>
+
     @foreach (var route in Model)
     {
+    <h1>@route.Controller</h1>
+    foreach(var action in route.Actions)
+    {
+        
+    <ul>
         <li>
-            
-                
-            <a href="@($"{route.Controller}/{route.Action}")">
-                @($"{route.Controller}/{route.Action}")
+
+            <h3>
+
+                <a href="@($"{route.Controller}/{action}")">
+                    @($"{route.Controller}/{action}")
             </a>
+            </h3>
             
         </li>
+    </ul>
     }
-</ul>
+    <br />
+    }
+

@@ -1,0 +1,23 @@
+﻿@model ITI_MVC.Models.Department
+
+@{
+    ViewData["Title"] = "New";
+}
+
+<h1>New</h1>
+
+<h4>Department</h4>
+<hr>
+<form method="post" action="/department/SaveNew">
+    <div>
+        <label> Name</label>
+        <input type="text" name="Name" class="form-control" value="@Model?.Name"/>
+    </div>
+    <div>
+        <label> Manger Name</label>
+        <input type="text" name="MangerName" class="form-control" value="@Model?.MangerName" />
+    </div>
+
+    <input type="submit" />
+</form>
+

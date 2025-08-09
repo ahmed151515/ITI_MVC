@@ -1,36 +1,28 @@
-namespace ITI_MVC
+﻿namespace ITI_MVC
 {
 	public class Program
 	{
 		public static void Main(string[] args)
 		{
-			//part 1
-			/*
-			 Pass Data From Action C# To View HTML
-				1- Model
-				2- ViewData
-				3- ViewBag
-				4- ViewModel
-			*/
+			// part 1
+			// Model binding: : Map Action Parametere with request data (Form —Query String —RouteData)
+			// Types
+
+			// Bind Premitive type
+			// Bind Collection(Dictionary)
+			// Bind Complex/Custom type
 
 			// part 2
-			/*
-			 StateManagement 
-				1- Tempdata you can use it until it read or session end its Storge in Cokies
-				2- Session 
-				3- Cookies 
-				4- QueryString self study
-				5- HiddenField self study
-			 */
+
 
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
-			builder.Services.AddControllersWithViews()
-				.AddSessionStateTempDataProvider() // to save tempData in Server
-				;
+			builder.Services.AddControllersWithViews();
 
 			builder.Services.AddSession();
+
+
 
 			var app = builder.Build();
 
@@ -46,7 +38,6 @@ namespace ITI_MVC
 			app.UseStaticFiles();
 
 			app.UseRouting();
-
 
 			app.UseAuthorization();
 

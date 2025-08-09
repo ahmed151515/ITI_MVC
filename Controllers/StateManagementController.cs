@@ -35,7 +35,7 @@ namespace ITI_MVC.Controllers
 		{
 
 			Response.Cookies.Append("remembe_my", "true", new CookieOptions
-			{ Expires = DateTimeOffset.Now.AddDays(15) });
+			{ Expires = DateTimeOffset.Now.AddDays(15), IsEssential = false });
 
 
 			return Content("i will remembe you");

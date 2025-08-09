@@ -29,15 +29,14 @@ namespace ITI_MVC.Controllers
 				var actions = controller.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
 										.Where(m => !skipActions.Contains(m.Name) && (typeof(IActionResult).IsAssignableFrom(m.ReturnType) || m.ReturnType == typeof(Task<IActionResult>)));
 
-				foreach (var action in actions)
-				{
 
-					routes.Add(new RouteInfo
-					{
-						Controller = controllerName,
-						Action = action.Name,
-					});
-				}
+
+				routes.Add(new RouteInfo
+				{
+					Controller = controllerName,
+					Actions = actions.Select(a => a.Name).ToList(),
+				});
+
 			}
 
 			return routes;
@@ -46,7 +45,7 @@ namespace ITI_MVC.Controllers
 		public class RouteInfo
 		{
 			public string Controller { get; set; }
-			public string Action { get; set; }
+			public List<string> Actions { get; set; }
 		}
 
 	}
