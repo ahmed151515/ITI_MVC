@@ -4,15 +4,27 @@
 	{
 		public static void Main(string[] args)
 		{
-			// part 1
-			// Model binding: : Map Action Parametere with request data (Form —Query String —RouteData)
-			// Types
+			// HTML helper work in farmework  and core
 
-			// Bind Premitive type
-			// Bind Collection(Dictionary)
-			// Bind Complex/Custom type
+			/*
+			 * lossly type
+			 * order of search of value is
+			 * 1. ViewData
+			 * 2. VeiwBag
+			 * 3. Model as Proprety
+			 * 4. null
+			 * 
+			 * Strong type must the view strong type 
+			 * end with for
+			 */
 
-			// part 2
+			// Tag Helper core only
+			/*
+			 * 
+			 */
+
+			// topic 2
+			// layout
 
 
 			var builder = WebApplication.CreateBuilder(args);

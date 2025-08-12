@@ -1,5 +1,6 @@
 ﻿using ITI_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITI_MVC.Controllers
@@ -30,6 +31,8 @@ namespace ITI_MVC.Controllers
 		}
 		// Handles form submission and saves the new Department
 		[HttpPost]
+		// allow acsess from internal
+		[ValidateAntiForgeryToken] // when you use Tag or HTML Hepler
 		public IActionResult Edit(int id, Employee employee)
 		{
 			if (employee.Name != null && employee.Salary > 1000)
@@ -47,5 +50,32 @@ namespace ITI_MVC.Controllers
 			return Edit(id);
 
 		}
+
+		[HttpGet]
+		public IActionResult Create()
+		{
+			ViewBag.Depts = DeptsDropList;
+			return View();
+		}
+		[HttpPost]
+		public IActionResult Create(Employee employee)
+		{
+			if (employee.Salary >= 6000)
+			{
+				context.Employees.Add(employee);
+				context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				ViewBag.Depts = DeptsDropList;
+
+				ViewData["Error"] = $"salary Can't be less than 6000 current salary is {employee.Salary}";
+				return View("Create", employee);
+			}
+		}
+
+		public IEnumerable<SelectListItem> DeptsDropList => context.Departments.Select(d => new SelectListItem(d.Name, d.Id.ToString()));
+		//public IEnumerable<SelectListItem> DeptsDropList => new SelectList(context.Departments.Select(d => new { d.Name, d.Id }), "Id", "Name");
 	}
 }

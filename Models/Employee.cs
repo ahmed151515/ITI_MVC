@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ITI_MVC.Models
 {
@@ -10,10 +11,11 @@ namespace ITI_MVC.Models
 		public string Address { get; set; }
 
 		[ForeignKey("Department")]
+		[Display(Name = "Department")]
 		public int Dept_Id { get; set; }
 		public Department Department { get; set; }
 
-		
+
 
 	}
 }

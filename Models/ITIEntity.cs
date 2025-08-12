@@ -11,7 +11,9 @@ namespace ITI_MVC.Models
 		{
 			base.OnConfiguring(optionsBuilder);
 
-			optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=ITI_MVC;User ID=sa;Password=SqlServer1;Trust Server Certificate=True");
+			optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=ITI_MVC;User ID=sa;Password=SqlServer1;Trust Server Certificate=True")
+				//.LogTo(Console.WriteLine, LogLevel.Information)
+				;
 		}
 	}
 }

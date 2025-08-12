@@ -8,16 +8,48 @@
 
 <h4>Department</h4>
 <hr>
-<form method="post" action="/department/SaveNew">
+<form method="post" asp-action="/department/SaveNew" >
     <div>
+        <!-- Pure html
+
         <label> Name</label>
         <input type="text" name="Name" class="form-control" value="@Model?.Name"/>
+        -->
+       @* html Helper *@
+        @* @Html.LabelFor(d => d.Name, new { Class = "form-control" })*@
+        @* @Html.TextBoxFor(d => d.Name, new { Class = "form-control" }) *@
+        @* @Html.EditorFor(d => d.Name, new { Class = "form-control" }) *@ 
+
+        @* Tag Helper *@
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+
     </div>
     <div>
+        <!-- Pure html 
         <label> Manger Name</label>
         <input type="text" name="MangerName" class="form-control" value="@Model?.MangerName" />
+        -->
+        @* html Helper *@
+
+        @* @Html.LabelFor(d => d.MangerName, new { @class = "form-control" }) *@
+        @* @Html.TextBoxFor(d => d.MangerName, new { @class = "form-control" }) *@
+        @* @Html.EditorFor(d => d.MangerName, new { @class = "form-control" }) *@
+
+        @* Tag Helper *@
+
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+
     </div>
 
     <input type="submit" />
+    
 </form>
+    <br />
+    <hr />
+
+    @* @Html.ActionLink("Back to List", "Index") *@
+
+    <a asp-action="Index">Back to List</a> 
 
