@@ -1,33 +1,45 @@
 ﻿@model Employee
 @{
-    ViewData["Title"] = "Create";
-    if (!string.IsNullOrEmpty(ViewData["Error"] as string))
-    {
-        <div class="alert alert-danger">@ViewData["Error"]</div>
-    }
+
+    
 }
 
 <h1 class="mb-4">Create</h1>
 
+
 <form asp-action="Create" method="post" class="container" asp-antiforgery="true">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="mb-3">
         <label asp-for="Name" class="form-label"></label>
         <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="invalid-feedback d-block"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Salary" class="form-label"></label>
         <input asp-for="Salary" class="form-control" />
+        <span asp-validation-for="Salary" class="invalid-feedback d-block"></span>
+
     </div>
     <div class="mb-3">
         <label asp-for="Address" class="form-label"></label>
         <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="invalid-feedback d-block"></span>
+
     </div>
     <div class="mb-3">
         <label asp-for="Dept_Id" class="form-label d-block"></label>
         <select asp-for="Dept_Id" class="form-select" asp-items="@ViewBag.Depts">
             
         </select>
+        <span asp-validation-for="Dept_Id" class="invalid-feedback d-block"></span>
+
     </div>
 
     <input type="submit" class="btn btn-success"/>
 </form>
+
+        @section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        }
+        

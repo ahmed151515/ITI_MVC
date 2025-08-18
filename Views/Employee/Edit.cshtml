@@ -7,7 +7,7 @@
 
 <h4>Employee</h4>
 <hr>
-<form method="post" action="@Model.Id">
+<form method="post" asp-action="Edit">
     <input type="hidden" name="Id" value="@Model.Id" />
     <div>
         <label> Name</label>
@@ -24,7 +24,7 @@
     <div>
         <label> Department</label>
         <select name="Dept_Id">
-            <option value="@Model.Dept_Id" > @Model.Department.Name</option>
+            <option value="@Model.Dept_Id"> @Model.Department.Name</option>
             @foreach (var dept in ViewBag.Depts)
             {
                 <option value="@dept.Id"> @dept.Name</option>
@@ -32,8 +32,7 @@
             }
         </select>
     </div>
-    
+
 
     <input type="submit" />
 </form>
-

@@ -4,28 +4,26 @@
 	{
 		public static void Main(string[] args)
 		{
-			// HTML helper work in farmework  and core
-
+			// Part 1
+			// validation
 			/*
-			 * lossly type
-			 * order of search of value is
-			 * 1. ViewData
-			 * 2. VeiwBag
-			 * 3. Model as Proprety
-			 * 4. null
+			 * type of validation 
+			 * .1 Client Side (JS)
+			 * .2 Server Side
+			 * .3 SQL Server (Constraint)
+			 */
+			// prat 2
+			/*
+			 * when create custom validation 
+			 * .1 not found built in attribute (like less than or greater than only)
+			 * .2 validate based on DB
 			 * 
-			 * Strong type must the view strong type 
-			 * end with for
+			 * Types
+			 * .1 validation attribute 
+			 * .2 remote (MVC only)
 			 */
 
-			// Tag Helper core only
-			/*
-			 * 
-			 */
-
-			// topic 2
-			// layout
-
+			// ModelMataData when you database first
 
 			var builder = WebApplication.CreateBuilder(args);
 

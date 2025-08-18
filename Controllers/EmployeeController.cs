@@ -33,11 +33,14 @@ namespace ITI_MVC.Controllers
 		[HttpPost]
 		// allow acsess from internal
 		[ValidateAntiForgeryToken] // when you use Tag or HTML Hepler
-		public IActionResult Edit(int id, Employee employee)
+		public IActionResult Edit(Employee employee)
 		{
-			if (employee.Name != null && employee.Salary > 1000)
+			if (ModelState.IsValid)
 			{
-				var emp = context.Employees.FirstOrDefault(e => e.Id == id);
+				var emp = context.Employees.FirstOrDefault(e =>
+
+				 e.Id == employee.Id
+					);
 				emp.Name = employee.Name;
 				emp.Salary = employee.Salary;
 				emp.Address = employee.Address;
@@ -47,7 +50,7 @@ namespace ITI_MVC.Controllers
 				context.SaveChanges();
 				return RedirectToAction("Index");
 			}
-			return Edit(id);
+			return Edit(employee.Id);
 
 		}
 
@@ -60,22 +63,42 @@ namespace ITI_MVC.Controllers
 		[HttpPost]
 		public IActionResult Create(Employee employee)
 		{
-			if (employee.Salary >= 6000)
+			if (ModelState.IsValid)
 			{
-				context.Employees.Add(employee);
-				context.SaveChanges();
-				return RedirectToAction("Index");
+				try
+				{
+					context.Employees.Add(employee);
+					context.SaveChanges();
+					return RedirectToAction("Index");
+				}
+				catch
+				{
+					ModelState.AddModelError("", "samething is failure try later");
+				}
 			}
-			else
-			{
-				ViewBag.Depts = DeptsDropList;
 
-				ViewData["Error"] = $"salary Can't be less than 6000 current salary is {employee.Salary}";
-				return View("Create", employee);
-			}
+
+			ViewBag.Depts = DeptsDropList;
+
+			return View("Create", employee);
+
+
+
 		}
 
-		public IEnumerable<SelectListItem> DeptsDropList => context.Departments.Select(d => new SelectListItem(d.Name, d.Id.ToString()));
-		//public IEnumerable<SelectListItem> DeptsDropList => new SelectList(context.Departments.Select(d => new { d.Name, d.Id }), "Id", "Name");
+		public JsonResult CheckSalary(decimal Salary)
+		{
+			if (Salary >= 7000)
+			{
+				return Json(true);
+			}
+			return Json(false);
+		}
+
+		//public IEnumerable<SelectListItem> DeptsDropList => context.Departments.Select(d => new SelectListItem(d.Name, d.Id.ToString()));
+
+		public IEnumerable<SelectListItem> DeptsDropList => new SelectList(context.Departments.Select(d => new { d.Name, d.Id }), "Id", "Name");
+
+
 	}
 }
