@@ -15,6 +15,18 @@ namespace ITI_MVC.Controllers
 			return View(list);
 		}
 
+
+		public IActionResult Details(int id)
+		{
+			var emp = context.Employees.Include(e => e.Department).FirstOrDefault(e => e.Id == id);
+			return View(emp);
+		}
+		public IActionResult Card(int id)
+		{
+			var emp = context.Employees.Include(e => e.Department).FirstOrDefault(e => e.Id == id);
+			return PartialView("_EmployeeCardPartial", emp);
+		}
+
 		//  Returns a form view for creating a new Department
 		[HttpGet]
 		public IActionResult Edit(int id)

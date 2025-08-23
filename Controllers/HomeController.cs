@@ -14,7 +14,10 @@ namespace ITI_MVC.Controllers
 
 		private List<RouteInfo> GetAllRoutes()
 		{
-			var skipActions = new List<string> { "Details" };
+			var skipActions = new List<string>
+			{
+				"Details"
+			};
 			var controllerTypes = Assembly.GetExecutingAssembly()
 				.GetTypes()
 				.Where(t => typeof(Controller).IsAssignableFrom(t) && !t.IsAbstract)

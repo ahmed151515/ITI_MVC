@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SelectListItem>
+
+
+    <div style="border:3px solid black" id="Employees"></div>
+
+    <div>
+        <br /> 
+        <h1>Department</h1>
+    <select id="deptSelect" asp-items="Model">
+
+
+    
+</select>
+
+    </div>
+    <div>
+
+        <br /> 
+<button onclick="GetEmps()" >Get Employess</button>
+    </div>
+
+    @section Scripts{
+        
+        <script>
+
+        function GetEmps(){
+            let dept_id = document.getElementById("deptSelect").value;
+            $.ajax(
+                      {
+                          url: "/Department/Employees",
+                          data:{ "dept_Id" : dept_id},
+                      success: function(result)
+                      {
+
+                            document.getElementById("Employees").innerHTML = result;
+                      }
+                      });
+        }
+        </script>
+    }

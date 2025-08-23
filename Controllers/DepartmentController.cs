@@ -1,20 +1,44 @@
 ﻿using ITI_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITI_MVC.Controllers
 {
 	public class DepartmentController : Controller
 	{
 		private ITIEntities context = new ITIEntities();
-		public IActionResult Index()
+
+
+		public IActionResult Employees(int dept_Id)
 		{
 
-
+			var emps = context.Employees.AsNoTracking().Where(e => e.Dept_Id == dept_Id).ToList();
+			return PartialView("_EmployeesPartial", emps);
+		}
+		public IActionResult Index()
+		{
 
 			var data = context.Departments.ToList();
 
 
 			return View("Index", data);
+		}
+		public IActionResult Details(int id)
+		{
+
+			var data = context.Departments.FirstOrDefault(d => d.Id == id);
+
+
+			return View(data);
+		}
+		public IActionResult DropDownList()
+		{
+
+			var data = new SelectList(context.Departments, "Id", "Name");
+
+
+			return View(data);
 		}
 
 

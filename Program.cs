@@ -4,26 +4,9 @@
 	{
 		public static void Main(string[] args)
 		{
-			// Part 1
-			// validation
-			/*
-			 * type of validation 
-			 * .1 Client Side (JS)
-			 * .2 Server Side
-			 * .3 SQL Server (Constraint)
-			 */
-			// prat 2
-			/*
-			 * when create custom validation 
-			 * .1 not found built in attribute (like less than or greater than only)
-			 * .2 validate based on DB
-			 * 
-			 * Types
-			 * .1 validation attribute 
-			 * .2 remote (MVC only)
-			 */
+			//part 1 
 
-			// ModelMataData when you database first
+			// pratial View
 
 			var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +38,19 @@
 
 			app.MapControllerRoute(
 				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}"
+				pattern: "{controller=Home}/{action=Index}/{id:int?}"
+				);
+			app.MapControllerRoute(
+				name: "defaultByName",
+				pattern: "{controller=Home}/{action=Index}/{name:alpha?}"
+				);
+			app.MapControllerRoute(
+				name: "emp",
+				pattern: "emp/{action=Index}/{id?}",
+				new
+				{
+					controller = "Employee"
+				}
 				);
 
 			app.Run();
