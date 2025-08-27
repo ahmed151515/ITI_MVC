@@ -2,42 +2,41 @@
 using ITI_MVC.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITI_MVC.Controllers
+namespace ITI_MVC.Controllers;
+
+public class PassDataController : Controller
 {
-	public class PassDataController : Controller
+	private AppDbContextWithoutConstructor context = new();
+
+	public IActionResult TestViewData()
 	{
-		ITIEntities context = new ITIEntities();
-		public IActionResult TestViewData()
-		{
+		var Emp = context.Employees.FirstOrDefault();
+		var dateNow = DateTime.Now.ToString("dddd-MMMM-yyyyy");
+		var numOfEmployees = context.Employees.Count();
+		ViewData.Add(nameof(dateNow), dateNow);
+		ViewData.Add(nameof(numOfEmployees), numOfEmployees);
+		return View(Emp);
+	}
 
-			var Emp = context.Employees.FirstOrDefault();
-			var dateNow = DateTime.Now.ToString("dddd-MMMM-yyyyy");
-			var numOfEmployees = context.Employees.Count();
-			ViewData.Add(nameof(dateNow), dateNow);
-			ViewData.Add(nameof(numOfEmployees), numOfEmployees);
-			return View(Emp);
-		}
-		public IActionResult TestViewBag()
-		{
+	public IActionResult TestViewBag()
+	{
+		var Emp = context.Employees.FirstOrDefault();
+		var dateNow = DateTime.Now.ToString("dddd-MMMM-yyyyy");
+		var numOfEmployees = context.Employees.Count();
+		ViewBag.dateNow = dateNow;
+		ViewBag.numOfEmployees = numOfEmployees;
 
-			var Emp = context.Employees.FirstOrDefault();
-			var dateNow = DateTime.Now.ToString("dddd-MMMM-yyyyy");
-			var numOfEmployees = context.Employees.Count();
-			ViewBag.dateNow = dateNow;
-			ViewBag.numOfEmployees = numOfEmployees;
+		return View(Emp);
+	}
 
-			return View(Emp);
-		}
-		public IActionResult TestViewBagModel()
-		{
+	public IActionResult TestViewBagModel()
+	{
+		var Emp = context.Employees.FirstOrDefault();
+		var dateNow = DateTime.Now.ToString("dddd-MMMM-yyyy");
+		var numOfEmployees = context.Employees.Count();
 
-			var Emp = context.Employees.FirstOrDefault();
-			var dateNow = DateTime.Now.ToString("dddd-MMMM-yyyy");
-			var numOfEmployees = context.Employees.Count();
+		var ViewModel = new EmployeeAndMessageAndEmployeeCountViewModel(Emp, numOfEmployees, dateNow);
 
-			var ViewModel = new EmployeeAndMessageAndEmployeeCountViewModel(Emp, numOfEmployees, dateNow);
-
-			return View(ViewModel);
-		}
+		return View(ViewModel);
 	}
 }

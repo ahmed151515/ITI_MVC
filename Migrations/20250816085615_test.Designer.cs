@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ITI_MVC.Migrations
 {
-    [DbContext(typeof(ITIEntities))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250816085615_test")]
     partial class test
     {

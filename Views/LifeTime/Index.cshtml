@@ -1,0 +1,20 @@
+@inject ITemp temp
+@using ITI_MVC.Repository
+@model string
+@{
+	ViewBag.Title = "title";
+}
+<h1>ViewBag:@ViewBag.Id</h1>
+<h1>Inject:@temp.id</h1>
+
+<h1>@Model</h1>
+
+<environment include="Development">
+	<!-- local css js -->
+</environment>
+<environment exclude="Development">
+	<!-- cdn css js -->
+	
+</environment>
+
+

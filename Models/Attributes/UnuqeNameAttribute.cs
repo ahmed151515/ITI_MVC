@@ -1,34 +1,30 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ITI_MVC.Models.Attributes
+namespace ITI_MVC.Models.Attributes;
+
+public class UniqueNameAttribute : ValidationAttribute
 {
-	public class UniqueNameAttribute : ValidationAttribute
+	public string ErrorMsg { get; set; }
+
+	protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
 	{
-		public string ErrorMsg { get; set; }
-		protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+		//if (value is not string val || string.IsNullOrWhiteSpace(val))
+		//{ 
+		//	return new ValidationResult("Name must not empty");
+		//}
+		if (value is string val && validationContext.ObjectInstance is Employee emp)
 		{
+			using var context = new AppDbContextWithoutConstructor();
 
-			//if (value is not string val || string.IsNullOrWhiteSpace(val))
-			//{ 
-			//	return new ValidationResult("Name must not empty");
-			//}
-			if (value is string val)
+			var res = context.Employees.FirstOrDefault(e => e.Id != emp.Id && e.Name == val);
+
+			if (res == null)
 			{
-
-				using var context = new ITIEntities();
-
-				var res = context.Employees.FirstOrDefault(e => e.Name == val);
-
-				if (res == null)
-				{
-
-					return ValidationResult.Success;
-				}
-
+				return ValidationResult.Success;
 			}
-
-			return new ValidationResult(ErrorMsg);
-			//return base.IsValid(value, validationContext);
 		}
+
+		return new ValidationResult(ErrorMsg);
+		//return base.IsValid(value, validationContext);
 	}
 }

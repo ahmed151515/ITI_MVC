@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ITI_MVC.Migrations
 {
-    [DbContext(typeof(ITIEntities))]
+    [DbContext(typeof(AppDbContext))]
     partial class ITIEntityModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
