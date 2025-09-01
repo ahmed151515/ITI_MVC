@@ -1,0 +1,15 @@
+@model ApplicationUser
+
+
+<h1>
+	UserName: @Model.UserName
+</h1>
+<h1>
+	Address: @Model.Address
+</h1>
+@foreach (var role in ViewBag.Roles)
+{
+	<h1>
+		Role: @role
+	</h1>
+}

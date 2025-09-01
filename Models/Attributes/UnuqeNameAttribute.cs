@@ -6,17 +6,21 @@ public class UniqueNameAttribute : ValidationAttribute
 {
 	public string ErrorMsg { get; set; }
 
-	protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+	protected override ValidationResult? IsValid(object? value,
+		ValidationContext validationContext)
 	{
 		//if (value is not string val || string.IsNullOrWhiteSpace(val))
 		//{ 
 		//	return new ValidationResult("Name must not empty");
 		//}
-		if (value is string val && validationContext.ObjectInstance is Employee emp)
+		if (value is string val &&
+		    validationContext.ObjectInstance is Employee emp)
 		{
-			using var context = new AppDbContextWithoutConstructor();
+			using var context = new AppDbContext();
 
-			var res = context.Employees.FirstOrDefault(e => e.Id != emp.Id && e.Name == val);
+			var res =
+				context.Employees.FirstOrDefault(e =>
+					e.Id != emp.Id && e.Name == val);
 
 			if (res == null)
 			{

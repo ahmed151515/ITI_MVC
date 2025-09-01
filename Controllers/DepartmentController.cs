@@ -43,7 +43,7 @@ public class DepartmentController : Controller
 
 	public IActionResult DropDownList()
 	{
-		var data = new SelectList(_departmentRepository.GetAll(), "Id", "Name");
+		var data = new SelectList(_departmentRepository.GetAll().AsEnumerable(), "Id", "Name");
 
 
 		return View(data);

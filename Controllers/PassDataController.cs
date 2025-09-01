@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ITI_MVC.Controllers;
 
-public class PassDataController : Controller
+public class PassDataController(AppDbContext context) : Controller
 {
-	private AppDbContextWithoutConstructor context = new();
-
 	public IActionResult TestViewData()
 	{
 		var Emp = context.Employees.FirstOrDefault();
@@ -35,7 +33,9 @@ public class PassDataController : Controller
 		var dateNow = DateTime.Now.ToString("dddd-MMMM-yyyy");
 		var numOfEmployees = context.Employees.Count();
 
-		var ViewModel = new EmployeeAndMessageAndEmployeeCountViewModel(Emp, numOfEmployees, dateNow);
+		var ViewModel =
+			new EmployeeAndMessageAndEmployeeCountViewModel(Emp, numOfEmployees,
+				dateNow);
 
 		return View(ViewModel);
 	}

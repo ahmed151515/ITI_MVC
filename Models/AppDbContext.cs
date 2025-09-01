@@ -1,20 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITI_MVC.Models;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<ApplicationUser>
 {
-	public AppDbContext(DbContextOptions options) : base(options)
+	public AppDbContext()
+	{
+	}
+
+	public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
 	{
 	}
 
 	public DbSet<Employee> Employees { get; set; }
 	public DbSet<Department> Departments { get; set; }
-}
 
-public class AppDbContextWithoutConstructor : DbContext
-{
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	protected override void OnConfiguring(
+		DbContextOptionsBuilder optionsBuilder)
 	{
 		base.OnConfiguring(optionsBuilder);
 		optionsBuilder.UseSqlServer(
@@ -22,7 +25,4 @@ public class AppDbContextWithoutConstructor : DbContext
 			//.LogTo(Console.WriteLine, LogLevel.Information)
 			;
 	}
-
-	public DbSet<Employee> Employees { get; set; }
-	public DbSet<Department> Departments { get; set; }
 }

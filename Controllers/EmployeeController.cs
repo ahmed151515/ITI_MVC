@@ -1,18 +1,24 @@
 ﻿using ITI_MVC.Models;
 using ITI_MVC.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ITI_MVC.Controllers;
 
+[Authorize]
 public class EmployeeController : Controller
 {
 	// private AppDbContext _context = new();
 
-	private IEmployeeRepository _employeeRepository; //= new EmployeeRepository();
-	private IDepartmentRepository _departmentRepository; //= new DepartmentRepository();
+	private IEmployeeRepository
+		_employeeRepository; //= new EmployeeRepository();
 
-	public EmployeeController(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository)
+	private IDepartmentRepository
+		_departmentRepository; //= new DepartmentRepository();
+
+	public EmployeeController(IEmployeeRepository employeeRepository,
+		IDepartmentRepository departmentRepository)
 	{
 		_departmentRepository = departmentRepository;
 		_employeeRepository = employeeRepository;
@@ -103,5 +109,6 @@ public class EmployeeController : Controller
 	//public IEnumerable<SelectListItem> DeptsDropList => context.Departments.Select(d => new SelectListItem(d.Name, d.Id.ToString()));
 
 	public IEnumerable<SelectListItem> DeptsDropList =>
-		new SelectList(_departmentRepository.GetAll().ToList(), "Id", "Name");
+		new SelectList(_departmentRepository.GetAll().AsEnumerable(), "Id",
+			"Name");
 }
